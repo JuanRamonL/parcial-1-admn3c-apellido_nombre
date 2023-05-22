@@ -1,4 +1,4 @@
-# Parcial-1-DWN3C-Lopez-Juan-Ramon
+# Parcial-1-dwn3c-Lopez-Juan-Ramon
 # Parcial 1: Aplicaciones para dispositivos móviles
 ## Desarrollo mínimo y obligatorio, nota 4
 Cualquier faltante de los requisitos que se presentan a continuación, hará que la entrega se considere desaprobada, aunque haya hecho cosas no solicitadas o del punto siguiente. Esta condición es mínima e innegociable.

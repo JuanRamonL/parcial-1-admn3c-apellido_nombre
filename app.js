@@ -1,35 +1,43 @@
 const app = new Vue({
     el:'#contenedor',
     data:{
+
+        //------------datos---------- 
         texto:'hola',
-
-
-        login: true,
+        login: false,
 
         link:[
             { text: 'home', url:'#/home', enable: true},  
             { text: 'mi info', url:'#/abaut', enable: false},
             { text: 'configuración', url:'#/configuración', enable: false},
 
-        ]
+        ],
+
+        estadologin: false,
     },
 
 
     methods: {
-        textochau(){
-            this.texto= 'chau'
-        },
-        
-        open(){
+
+        //------------metodos y funciones---------- 
+        close(){
             this.login=false
         },
-        close(){
-            this.login= true
+        iniciosesion(){
+            this.login= true;
+            this.estadologin= false
         },
 
         envio(){
             console.log("se fue")
+        },
+       
+        mostrarpanellogin(){
+            this.estadologin= true
+           },
+        cerrarpanellogin(){
+            this.estadologin= false
         }
-    },
+    }
         
   })

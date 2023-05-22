@@ -12,6 +12,36 @@
 </head>
 <body>
     <div id="contenedor" class="container">
+
+        <div v-if="estadologin" class="modal" tabindex="-1" style="display: block;">
+            <div class="modal-dialog">
+              <div class="modal-content">
+
+                <div class="modal-header">
+                  <h5 class="modal-title">Inicio de sesión</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                  <p>ingrese sus datos</p>
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="Usuario">
+                    <label for="floatingInput">Usuario</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="floatingInput" placeholder="contraseña" @keyup.enter="iniciosesion">
+                    <label for="floatingInput">contraseña</label>
+                  </div>
+                </div>
+                
+                <div class="modal-footer">  
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"  @click="iniciosesion">Iniciar sesión</button>
+                  <button type="button" class="btn btn-primary"  @click="cerrarpanellogin">cancelar</button>
+                </div>
+              </div>
+            </div>
+        </div>
+
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container">
               <a class="navbar-brand" href="#">Navbar</a>
@@ -28,17 +58,19 @@
 
                 </ul>
 
-                <form class="d-flex" @submit.prevent="envio">
-                    <button v-if="!login" class="btn btn-outline-success" type="submit" @click="close">Iniciar sesión</button>
-                    <button v-if="login" class="btn btn-outline-success" type="submit" @click="open">Cerrar sesión</button>
+                <form class="d-flex" @submit.prevent="">
+                    <button v-if="!login" class="btn btn-outline-success" type="submit" @click="mostrarpanellogin" >Iniciar sesión</button>
+                    <button v-if="login" class="btn btn-outline-danger" type="submit" @click="close" >Cerrar sesión</button>
                 </form>
 
               </div>
             </div>
           </nav>
+        <main >
+            <!-- muestra el estado del usuario,  si esta logueado imprime un mensaje de lo contrario muestra otro-->
+            <p>{{login ? ' Bienvenido, Está logueado': 'Por favor, ¡Iniciar sesion!'}}</p>
+        </main>
         
-        <!-- muestra el estado del usuario,  si esta logueado imprime un mensaje de lo contrario muestra otro-->
-        <p>{{login ? ' Bienvenido, Está logueado': 'Por favor, ¡Iniciar sesion!'}}</p>
     
     </div>
 

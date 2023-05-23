@@ -13,6 +13,37 @@
 <body>
     <div id="contenedor" class="container">
 
+        
+        <div v-if="estadologin" class="modal" tabindex="-1" style="display: block;">
+            <div class="modal-dialog">
+              <div class="modal-content">
+
+                <div class="modal-header">
+                  <h5 class="modal-title">Inicio de sesión</h5>
+                  <button type="button" class="btn-close" aria-label="Close"  @click="cerrarpanellogin" ></button>
+                </div>
+
+                <div class="modal-body">
+                  <p>ingrese sus datos</p>
+                  <form action="">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="usuario" placeholder="Usuario">
+                        <label for="usuario">Usuario</label>
+                      </div>
+                      <div class="form-floating mb-3">
+                        <input type="password" autocomplete="contraseña" name="contraseña" class="form-control" id="contraseña" placeholder="contraseña" @keyup.enter="iniciosesion">
+                        <label for="contraseña">contraseña</label>
+                      </div>
+                  </form>
+                </div>
+                
+                <div class="modal-footer">  
+                  <button type="button" class="btn btn-outline-success"  @click="iniciosesion">Iniciar sesión</button>
+                  <button type="button" class="btn btn-outline-danger"  @click="cerrarpanellogin">cancelar</button>
+                </div>
+              </div>
+            </div>
+        </div>
 
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container">
@@ -30,9 +61,12 @@
 
                 </ul>
 
-                <form class="d-flex" @submit.prevent="">
-                    <button v-if="!login" class="btn btn-outline-success" type="submit" @click="mostrarpanellogin" >Iniciar sesión</button>
-                    <button v-if="login" class="btn btn-outline-danger" type="submit" @click="close" >Cerrar sesión</button>
+                <form class="d-flex" @submit.prevent="envio">
+
+                    <button type="submit" :class="`btn btn-outline-${login ?'danger':'success'}`" @click="sesion"  >
+                        {{ login ? 'Cerrar sesión' : 'Iniciar sesión'}}
+                    </button>
+
                 </form>
 
               </div>
@@ -41,37 +75,16 @@
         <main >
             <!-- muestra el estado del usuario,  si esta logueado imprime un mensaje de lo contrario muestra otro-->
             <p>{{login ? ' Bienvenido, Está logueado': 'Por favor, ¡Iniciar sesion!'}}</p>
+
+
+
         </main>
         
-        <div v-if="estadologin" class="modal" tabindex="-1" style="display: block;">
-            <div class="modal-dialog">
-              <div class="modal-content">
+        <contenedor-card ></contenedor-card>
 
-                <div class="modal-header">
-                  <h5 class="modal-title">Inicio de sesión</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
 
-                <div class="modal-body">
-                  <p>ingrese sus datos</p>
-                  <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Usuario">
-                    <label for="floatingInput">Usuario</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <input type="password" class="form-control" id="floatingInput" placeholder="contraseña" @keyup.enter="iniciosesion">
-                    <label for="floatingInput">contraseña</label>
-                  </div>
-                </div>
-                
-                <div class="modal-footer">  
-                  <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal"  @click="iniciosesion">Iniciar sesión</button>
-                  <button type="button" class="btn btn-outline-danger"  @click="cerrarpanellogin">cancelar</button>
-                </div>
-              </div>
-            </div>
-        </div>
- 
+        <prueba-array></prueba-array>
+
     </div>
 
     <script src="app.js"></script>

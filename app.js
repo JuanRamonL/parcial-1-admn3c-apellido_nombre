@@ -6,9 +6,6 @@ Vue.component('contenedor-card',{
 
         }
     },
-    methods: {
-        
-    },
     template:`
     <div>
         <div class="card" style="width: 18rem;">
@@ -24,27 +21,40 @@ Vue.component('contenedor-card',{
     `
 })
 
-Vue.component( 'prueba-array', {
+
+
+//==================== desde acá===========================
+
+Vue.component( 'mis-tareas', {
     data: function(){
         return{
-            lank:[
-                { text: 'home', url:'#/home', enable: true},  
-                { text: 'mi info', url:'#/abaut', enable: false},
-                { text: 'configuración', url:'#/configuración', enable: false},
-    
-            ]
+            misTareas:[],
+            nuevaTarea:{
+                id: 1,
+                name: "",
+            }
         }
     },
 
     template:`
         <div>
-            <li v-for="item in lank" class="nav-item" >
-                <a class="nav-link active" aria-current="page" href="#">{{item.text}}</a>
-            </li>
+            <h2>Agregar objeto:</h2>
+            <form @submit.prevent="addItem">
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" v-model="nuevaTarea.name" required>
+                <button  class="btn btn-outline-success" type="submit" >agregar item</button>
+            </form>
+            
+            
 
             <button  class="btn btn-outline-danger" type="submit" @click="borrarprimeritem" >borrar primer item</button>
             <button  class="btn btn-outline-danger" type="submit" @click="borrarultimoitem" >borrar ultimo item</button>
-            <button  class="btn btn-outline-success" type="submit" @click="agregaritem" >agregar item</button>
+            
+            <li v-for="item in misTareas" class="nav-item list-group-item" >
+                <a class=" active" aria-current="page" href="#">{{item.name}}</a>
+
+                <contenedor-card ></contenedor-card>
+            </li>
         </div>
     `,
 
@@ -53,7 +63,7 @@ Vue.component( 'prueba-array', {
         Borra el primer item del array 
         */
         borrarprimeritem(){
-            this.lank.splice(0,1);
+            this.misTareas.splice(0,1);
             console.log("se borro el primer item")
         },
 
@@ -61,7 +71,7 @@ Vue.component( 'prueba-array', {
         Borra el ultimo item del array
         */
         borrarultimoitem(){
-            this.lank.splice(-1)[0];
+            this.misTareas.splice(-1)[0];
             console.log("se borro el ultimo item")
 
         },
@@ -71,15 +81,25 @@ Vue.component( 'prueba-array', {
         */
 
         agregaritem(){
-            const items = { text: 'home', url:'#/home', enable: true};
-            this.lank.push(items);
+            const items = { text: 'home', };
+            this.misTareas.push(items);
             console.log("se agregó   un item")
+        },
+        addItem() {
+            this.misTareas.push({...this.nuevaTarea});
+            this.nuevaTarea.id++;
+            this.nuevaTarea.name = '';
+            console.log(this.misTareas)
+          }
 
-        }
     }
 
 
 })
+
+//==================== hasta acá===========================
+
+
 
 const app = new Vue({
     el:'#contenedor',
@@ -91,7 +111,7 @@ const app = new Vue({
 
         link:[
             { text: 'home', url:'#/home', enable: true},  
-            { text: 'mi info', url:'#/abaut', enable: false},
+            { text: 'mis tareas', url:'#/abaut', enable: false},
             { text: 'configuración', url:'#/configuración', enable: false},
 
         ],
@@ -139,3 +159,93 @@ const app = new Vue({
     }
         
   }) 
+
+
+
+Vue.component('ventana-modal',{
+    data: function(){
+        return{
+
+            estadologin: false,
+        }
+    },
+    methods:{
+
+    },
+    template:`
+    <div>
+        <div v-if="estadologin" class="modal" tabindex="-1" style="display: block;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                    <h5 class="modal-title">Inicio de sesión</h5>
+                    <button type="button" class="btn-close" aria-label="Close"  @click="cerrarpanellogin" ></button>
+                    </div>
+
+                    <div class="modal-body">
+                    <p>ingrese sus datos</p>
+                    <form action="">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="usuario" placeholder="Usuario">
+                            <label for="usuario">Usuario</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" autocomplete="contraseña" name="contraseña" class="form-control" id="contraseña" placeholder="contraseña" @keyup.enter="iniciosesion">
+                            <label for="contraseña">contraseña</label>
+                        </div>
+                    </form>
+                    </div>
+                    
+                    <div class="modal-footer">  
+                    <button type="button" class="btn btn-outline-success"  @click="iniciosesion">Iniciar sesión</button>
+                    <button type="button" class="btn btn-outline-danger"  @click="cerrarpanellogin">cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>`
+});
+
+Vue.component('barra-Navegacion',{
+    data: function(){
+        return{
+
+        }
+    },
+    methods:{
+
+    },
+    template:/*`
+    <div>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container">
+              <a class="navbar-brand" href="#">Navbar</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
+
+                <ul class="navbar-nav">
+
+                  <li v-for="item in link" class="nav-item" v-if="item.enable || login">
+                    <a class="nav-link active" aria-current="page" href="#">{{item.text}}</a>
+                  </li>
+
+                </ul>
+
+                <form class="d-flex" @submit.prevent="envio">
+
+                    <button type="submit" :class="`btn btn-outline-${login ?'danger':'success'}`" @click="sesion"  >
+                        {{ login ? 'Cerrar sesión' : 'Iniciar sesión'}}
+                    </button>
+
+                </form>
+
+              </div>
+            </div>
+          </nav>
+    </div>
+    
+    `,*/``
+})

@@ -1,109 +1,82 @@
-Vue.component('contenedor-card',{
-
-    props: ['texto'], // Definimos la prop texto
-    template:`
-    <div>
+Vue.component('contenedor-card', {
+    props: ['texto'],
+    template: `
+      <div>
         <div class="card mx-2" style="width: 18rem;">
-                <div class="card-body ">
-                <h3 class="card-title">{{texto}}</h3>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Agregar apuntes"></textarea>
-
-                <ul class="list-group">
-                    <li class="list-group-item">An item</li>
-
-                </ul>
-                <div class="d-flex justify-content-around">
-                    <button href="#" class="btn btn-outline-primary">modificar</button>
-                    <button href="#" class="btn btn-outline-danger">quitar</button>
-                </div>
-
-                
-                
-                </div>
-                
+          <div class="card-body">
+            <h3 class="card-title">{{texto}}</h3>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Agregar apuntes"></textarea>
+            <ul class="list-group">
+              <li class="list-group-item">Texto modificado</li>
+            </ul>
+            <div class="d-flex justify-content-around">
+              <button href="#" class="btn btn-outline-primary">MODIFICAR</button>
+              <button href="#" class="btn btn-outline-danger" @click="borraTAREA">BORRAR</button>
             </div>
+          </div>
         </div>
-    </div>
-    
-    `
-})
-
+      </div>
+    `,
+    methods: {
+      borraTAREA() {
+        this.$emit('borrar-tarea', this.texto); // Emitir evento personalizado 'borrar-tarea' con el valor de la prop 'texto'
+      },
+    },
+  });
 
 
 //==================== desde acá===========================
 
-Vue.component( 'mis-tareas', {
-    data: function(){
-        return{
-            misTareas:[],
-            nuevaTarea:{
-                id: 1,
-                name: "",
-                
-            },
-            
-        }
+Vue.component('mis-tareas', {
+    data: function() {
+      return {
+        misTareas: [],
+        nuevaTarea: {
+          id: 1,
+          name: '',
+        },
+      };
     },
-
-    template:`
-        <div>
-            <h2>Agregar Materia</h2>
-            <form @submit.prevent="addItem">
-                <div class="col-auto">
-                    <label for="inputPassword2" class="visually-hidden">text</label>
-                    <input type="text" class="form-control" id="name" v-model="nuevaTarea.name" maxlength="30" required>
-                </div>
-                <button  class="btn btn-outline-success" type="submit" >Agregar tarea</button>
-                <button  class="btn btn-outline-danger" type="submit" @click="borrarprimeritem" >borrar primer item</button>
-                <button  class="btn btn-outline-danger" type="submit" @click="borrarultimoitem" >borrar ultimo item</button>
-    
-            </form>
-            
-            <div class="d-flex flex-wrap p-2 mx-2">
-                <contenedor-card :texto="item.name" v-for="item in misTareas"></contenedor-card> <!-- Pasamos item.name como prop texto -->
-            </div>
-                
+    template: `
+      <div>
+        <h2>Agregar Materia</h2>
+        <form @submit.prevent="addItem">
+          <div class="col-auto">
+            <label for="inputPassword2" class="visually-hidden">text</label>
+            <input type="text" class="form-control" id="name" v-model="nuevaTarea.name" maxlength="30" required>
+          </div>
+          <button class="btn btn-outline-success" type="submit">Agregar tarea</button>
+          <button class="btn btn-outline-danger" type="button" @click="borrarPrimerItem" :disabled="misTareas.length === 0">Borrar primer item</button>
+          <button class="btn btn-outline-danger" type="button" @click="borrarUltimoItem" :disabled="misTareas.length === 0">Borrar último item</button>
+        </form>
+  
+        <div class="d-flex flex-wrap p-2 mx-2">
+          <contenedor-card :texto="item.name" v-for="(item, index) in misTareas" :key="index" @borrar-tarea="borrarTarea(index)"></contenedor-card>
         </div>
+      </div>
     `,
-
-    methods:{
-        /* 
-        Borra el primer item del array 
-        */
-        borrarprimeritem(){
-            this.misTareas.splice(0,1);
-            console.log("se borro el primer item")
-        },
-
-        /* 
-        Borra el ultimo item del array
-        */
-        borrarultimoitem(){
-            this.misTareas.splice(-1)[0];
-            console.log("se borro el ultimo item")
-
-        },
-
-        /* 
-        Agrega un item al final
-        */
-
-        agregaritem(){
-            const items = { text: 'home', };
-            this.misTareas.push(items);
-            console.log("se agregó   un item")
-        },
-        addItem() {
-            this.misTareas.push({...this.nuevaTarea});
-            this.nuevaTarea.id++;
-            this.nuevaTarea.name = '';
-            console.log(this.misTareas)
-          }
-
-    }
-
-
-})
+    methods: {
+      borrarTarea(index) {
+        this.misTareas.splice(index, 1); // Eliminar el elemento del array 'misTareas' en la posición 'index'
+        console.log('Se borró el elemento en la posición', index);
+      },
+      addItem() {
+        this.misTareas.push({ ...this.nuevaTarea });
+        this.nuevaTarea.id++;
+        this.nuevaTarea.name = '';
+        console.log(this.misTareas);
+      },
+      borrarPrimerItem() {
+        this.misTareas.splice(0, 1); // Eliminar el primer elemento del array 'misTareas'
+        console.log('Se borró el primer item');
+      },
+      borrarUltimoItem() {
+        this.misTareas.splice(-1, 1); // Eliminar el último elemento del array 'misTareas'
+        console.log('Se borró el último item');
+      },
+    },
+  });
+  
 
 //==================== hasta acá===========================
 
@@ -126,9 +99,9 @@ const app = new Vue({
         estadologin: false,
     },
 
-     //localStorage
+     //metodo que vue ejecuta cuando está listo para mostrar la pagina 
     mounted() {
-        const islogin= localStorage.getItem('login');
+        const islogin= JSON.parse(localStorage.getItem('login'));
         if(islogin){
             this.login = true
         }

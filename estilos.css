@@ -1,7 +1,7 @@
 
 
 .card-title{
-    height: 50px;
+    height: 5rem;
 }
 textarea.form-control{
     min-height: calc(7rem + (0.75rem + 2px));

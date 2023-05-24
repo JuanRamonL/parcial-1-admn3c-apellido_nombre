@@ -40,13 +40,14 @@ Vue.component( 'mis-tareas', {
                 id: 1,
                 name: "",
                 
-            }
+            },
+            
         }
     },
 
     template:`
         <div>
-            <h2>Agregar tarea</h2>
+            <h2>Agregar Materia</h2>
             <form @submit.prevent="addItem">
                 <div class="col-auto">
                     <label for="inputPassword2" class="visually-hidden">text</label>
@@ -122,12 +123,17 @@ const app = new Vue({
             { text: 'configuración', url:'#/configuración', enable: false},
 
         ],
-
-        
-
         estadologin: false,
     },
 
+     //localStorage
+    mounted() {
+        const islogin= localStorage.getItem('login');
+        if(islogin){
+            this.login = true
+        }
+        console.log("se  montó ")
+    },
 
     methods: {
 
@@ -135,19 +141,25 @@ const app = new Vue({
 
         sesion(){
             if(!this.login){
+                
                 this.mostrarpanellogin();
             }else{
                 
             this.login = !this.login;
+            //localStorage cambio de valor 
+            localStorage.setItem('login','false');
             }
         },
 
         close(){
-            this.login=false
+            this.login=false;
+            
         },
         
         iniciosesion(){
             this.login= true;
+            //localStorage cambio de valor
+            localStorage.setItem('login','true');
             this.estadologin= false
         }, 
 

@@ -1,19 +1,26 @@
 Vue.component('contenedor-card',{
 
-    data:function(){
-        return{
-            texto:"hola",
-
-        }
-    },
+    props: ['texto'], // Definimos la prop texto
     template:`
     <div>
-        <div class="card" style="width: 18rem;">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">{{texto }}</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+        <div class="card mx-2" style="width: 18rem;">
+                <div class="card-body ">
+                <h3 class="card-title">{{texto}}</h3>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Agregar apuntes"></textarea>
+
+                <ul class="list-group">
+                    <li class="list-group-item">An item</li>
+
+                </ul>
+                <div class="d-flex justify-content-around">
+                    <button href="#" class="btn btn-outline-primary">modificar</button>
+                    <button href="#" class="btn btn-outline-danger">quitar</button>
+                </div>
+
+                
+                
+                </div>
+                
             </div>
         </div>
     </div>
@@ -32,29 +39,29 @@ Vue.component( 'mis-tareas', {
             nuevaTarea:{
                 id: 1,
                 name: "",
+                
             }
         }
     },
 
     template:`
         <div>
-            <h2>Agregar objeto:</h2>
+            <h2>Agregar tarea</h2>
             <form @submit.prevent="addItem">
-                <label for="name">Nombre:</label>
-                <input type="text" id="name" v-model="nuevaTarea.name" required>
-                <button  class="btn btn-outline-success" type="submit" >agregar item</button>
+                <div class="col-auto">
+                    <label for="inputPassword2" class="visually-hidden">text</label>
+                    <input type="text" class="form-control" id="name" v-model="nuevaTarea.name" maxlength="30" required>
+                </div>
+                <button  class="btn btn-outline-success" type="submit" >Agregar tarea</button>
+                <button  class="btn btn-outline-danger" type="submit" @click="borrarprimeritem" >borrar primer item</button>
+                <button  class="btn btn-outline-danger" type="submit" @click="borrarultimoitem" >borrar ultimo item</button>
+    
             </form>
             
-            
-
-            <button  class="btn btn-outline-danger" type="submit" @click="borrarprimeritem" >borrar primer item</button>
-            <button  class="btn btn-outline-danger" type="submit" @click="borrarultimoitem" >borrar ultimo item</button>
-            
-            <li v-for="item in misTareas" class="nav-item list-group-item" >
-                <a class=" active" aria-current="page" href="#">{{item.name}}</a>
-
-                <contenedor-card ></contenedor-card>
-            </li>
+            <div class="d-flex flex-wrap p-2 mx-2">
+                <contenedor-card :texto="item.name" v-for="item in misTareas"></contenedor-card> <!-- Pasamos item.name como prop texto -->
+            </div>
+                
         </div>
     `,
 

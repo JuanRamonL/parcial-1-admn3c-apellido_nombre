@@ -1,9 +1,20 @@
 
 
 .card-title{
-    height: 5rem;
-}
-textarea.form-control{
-    min-height: calc(7rem + (0.75rem + 2px));
+    height: 1rem;
 }
 
+.h5, h5 {
+    font-size: 1rem;
+}
+#apu{
+    
+}
+
+.tarea-tachada {
+    background-color: red;
+  }
+
+  .navbar-nav.ml-auto {
+    justify-content: flex-end;
+  }

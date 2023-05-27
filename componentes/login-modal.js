@@ -39,35 +39,31 @@ Vue.component('ventana-modal',{
         ],
 
         methods: {
-
-          inicioDeSesion:function(){
-
-            new Promise(()=>{
-              setTimeout(()=>{
-                success();
-              }, 2000);
+          inicioDeSesion() {
+            new Promise((resolve, reject) => {
+              setTimeout(() => {
+                resolve();
+              }, 1000);
             })
-            .then(()=>{
-              console.log("autenticando al servidor");
-              this.inicioSesion();
-              this.$emit('autenticar', true)  
-            })
-            .catch(()=>{
-              console.log("no se autenticó servidor");
-              this.$emit('autenticar', false) 
-            })
-            
+              .then(() => {
+                console.log("Autenticando al servidor");
+                this.inicioSesion();
+                this.$emit('autenticar', true);
+              })
+              .catch(() => {
+                console.log("No se autenticó");
+                this.$emit('autenticar', false);
+              });
           }
         },
-        
+        data: function(){
+            return{
+                
+            }
+        },
+
         //muestra si el componenete se monto en la aplicacion
         beforeMount(){
             console.log("se monto login-modal")
-        },
-
-        data: function(){
-          return{
-              
-          }
-      }
+        }
 })

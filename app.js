@@ -45,7 +45,7 @@ const app = new Vue({
             
         },
         
-        iniciosesion(){
+        inicioSesion(){
             this.login= true;
             //localStorage cambio de valor
             localStorage.setItem('login','true');
@@ -55,7 +55,7 @@ const app = new Vue({
         mostrarpanellogin(){
             this.estadologin= true
            },
-        cerrarpanellogin(){
+        cerrarPanelLogin(){
             this.estadologin= false
         },
         envio(){

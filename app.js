@@ -26,6 +26,12 @@ const app = new Vue({
 
     methods: {
 
+        autenticar(status){
+            if(status){
+                console.log('se autenticó')
+            }
+        },
+
         //------------metodos y funciones---------- 
 
         sesion(){

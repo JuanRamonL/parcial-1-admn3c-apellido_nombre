@@ -19,14 +19,14 @@ Vue.component('ventana-modal',{
                         <label for="usuario">Usuario</label>
                       </div>
                       <div class="form-floating mb-3">
-                        <input type="password" autocomplete="contraseña" name="contraseña" class="form-control" id="contraseña" placeholder="contraseña" @keyup.enter="iniciosesion">
+                        <input type="password" autocomplete="contraseña" name="contraseña" class="form-control" id="contraseña" placeholder="contraseña" @keyup.enter="inicioDeSesion">
                         <label for="contraseña">contraseña</label>
                       </div>
                   </form>
                 </div>
                 
                 <div class="modal-footer">  
-                  <button type="button" class="btn btn-outline-success"  @click="inicioSesion">Iniciar sesión</button>
+                  <button type="button" class="btn btn-outline-success"  @click="inicioDeSesion">Iniciar sesión</button>
                   <button type="button" class="btn btn-outline-danger"  @click="cerrarPanelLogin">cancelar</button>
                 </div>
                 
@@ -37,14 +37,37 @@ Vue.component('ventana-modal',{
         props:[
             'estadologin','cerrarPanelLogin','inicioSesion',
         ],
-        data: function(){
-            return{
-                
-            }
-        },
 
+        methods: {
+
+          inicioDeSesion:function(){
+
+            new Promise(()=>{
+              setTimeout(()=>{
+                success();
+              }, 2000);
+            })
+            .then(()=>{
+              console.log("autenticando al servidor");
+              this.inicioSesion();
+              this.$emit('autenticar', true)  
+            })
+            .catch(()=>{
+              console.log("no se autenticó servidor");
+              this.$emit('autenticar', false) 
+            })
+            
+          }
+        },
+        
         //muestra si el componenete se monto en la aplicacion
         beforeMount(){
             console.log("se monto login-modal")
-        }
+        },
+
+        data: function(){
+          return{
+              
+          }
+      }
 })

@@ -33,6 +33,7 @@ Vue.component('ventana-modal',{
               </div>
             </div>
         </div>`,
+        
         props:[
             'estadologin','cerrarPanelLogin','inicioSesion',
         ],

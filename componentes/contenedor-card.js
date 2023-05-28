@@ -91,11 +91,11 @@ Vue.component('contenedor-card', {
               <button class="btn btn-outline-danger" @click="borrarElemento">X</button>
             </div>
             <div class="d-flex justify-content-around">
-              <input class="form-control" v-model="nuevoTexto" rows="3" placeholder="Agregar apuntes" maxlength="30" />
+              <input class="form-control"  v-model="nuevoTexto" rows="3" placeholder="Agregar apuntes" maxlength="30" @keyup.enter="agregarTarea" />
               <button class="btn btn-outline-success mx-2" @click="agregarTarea">Agregar</button>
             </div>
   
-            <button class="btn btn-link mt-2" @click="listaDesplegada = !listaDesplegada">
+            <button class="btn btn-outline-secondary btn-sm mt-2" @click="listaDesplegada = !listaDesplegada">
               {{ listaDesplegada ? 'Cerrar lista' : 'Mostrar lista' }}
             </button>
   

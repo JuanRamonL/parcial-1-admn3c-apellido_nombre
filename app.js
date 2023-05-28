@@ -1,8 +1,6 @@
 const home = {
     template:`
-    <div id="contenedor">
-        <h1>hola mundo, estoy vivo y en home</h1>
-    </div>
+    <pantalla-inicio></pantalla-inicio>
     `,
 };
 

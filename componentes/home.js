@@ -25,7 +25,6 @@ Vue.component('pantalla-inicio', {
           <div class="container px-4 p-2 text-center" id="custom-cards">
             <h2 class="pt-5 fw-bold">{{ titulo }}</h2>
             <h3 class="fs-5">{{ descripcion }}</h3>
-  
             <div class="row row-cols-1 row-cols-lg-3 d-flex justify-content-center align-items-center py-5">
               <div class="col my-2" v-for="item in textoCards" :key="item.titulo">
                 <div class="h-100 overflow-hidden text-white bg-dark rounded-5" id="card1">
@@ -36,9 +35,9 @@ Vue.component('pantalla-inicio', {
                 </div>
               </div>
             </div>
-            
           </div>
         </section>
-      </div>
+
     `,
   });
+  

@@ -28,7 +28,7 @@ Vue.component('ventana-modal', {
               </form>
             </div>
 
-            <div class="errores">
+            <div class="errores mx-2 my-1 p-2">
               <div v-for="error in errores" class="alert alert-danger" role="alert">
                 {{error}}
               </div>

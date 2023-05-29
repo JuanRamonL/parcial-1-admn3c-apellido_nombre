@@ -14,16 +14,10 @@ Vue.component('contenedor-card', {
   created() {
     this.recuperarElementos();
   },
-  watch: {
-    listaTareas() {
-      this.actualizarContenedorColor();
-      this.guardarElementos();
-    },
-    checkboxMarcado() {
-      this.tacharTexto();
-      this.ordenarLista();
-      this.guardarElementos();
-    },
+  mounted() {
+    this.$watch('listaTareas', this.guardarElementos, { deep: true });
+    this.$watch('checkboxMarcado', this.guardarElementos);
+    this.actualizarContenedorColor();
   },
   methods: {
     agregarTarea() {
@@ -31,15 +25,15 @@ Vue.component('contenedor-card', {
         if (this.listaTareas.length < 10) {
           this.listaTareas.push({ texto: this.nuevoTexto, tachado: false });
           this.nuevoTexto = '';
-          this.guardarElementos();
+          this.actualizarContenedorColor(); // Actualizar el color después de agregar una tarea
         } else {
-          console.log('Se ha alcanzado el límite de 10 elementos');
+          alert('¡Se ha alcanzado el límite máximo de 10 tareas!');
         }
       }
     },
     borrarTarea(index) {
       this.listaTareas.splice(index, 1);
-      this.guardarElementos();
+      this.actualizarContenedorColor(); // Actualizar el color después de borrar una tarea
     },
     editarTarea(index) {
       if (this.editarIndice !== index) {
@@ -49,17 +43,8 @@ Vue.component('contenedor-card', {
       }
     },
     borrarElemento() {
-      this.$emit('borrar-contenedor');
-
-      // Eliminar los elementos del localStorage generados dentro del elemento borrado
       localStorage.removeItem(this.localStorageKey);
-
-      // Eliminar los elementos <li> generados dentro del elemento borrado
-      const contenedor = this.$el;
-      const elementosLi = contenedor.querySelectorAll('li');
-      elementosLi.forEach((li) => {
-        li.parentNode.removeChild(li);
-      });
+      this.$emit('borrar-contenedor');
     },
     actualizarContenedorColor() {
       const totalTareas = this.listaTareas.length;

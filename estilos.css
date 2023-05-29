@@ -1,5 +1,4 @@
 
-
 .card-title{
     height: 1rem;
 }
@@ -12,4 +11,9 @@
 }
   .navbar-nav.ml-auto {
     justify-content: flex-end;
-  }
+}
+
+#negro{
+  min-height: 600px;
+  padding: 2rem;
+}

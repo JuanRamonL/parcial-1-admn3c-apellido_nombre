@@ -22,7 +22,7 @@ Vue.component('mis-tareas', {
         <button class="btn btn-outline-success m-2" type="submit">Agregar tarea</button>
       </form>
 
-      <div class="d-flex flex-wrap py-2 my-2">
+      <div class="d-flex flex-wrap py-2 my-2" id="negro" >
         <contenedor-card :texto="item.name" v-for="(item, index) in misTareas" :key="item.id" @borrar-contenedor="borrarContenedor(index)"></contenedor-card>
       </div>
     </div>

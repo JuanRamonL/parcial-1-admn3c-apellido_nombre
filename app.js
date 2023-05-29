@@ -23,7 +23,8 @@ const mis_tareas = {
 
 const router = new VueRouter({
     routes:
-    [
+    [   
+        { path: '/', redirect: '/home' },
         {path:'/home', component: home },
         {path:'/mis_tareas', component: mis_tareas },
         //{path:'/configuración', component: configuración },

@@ -94,7 +94,7 @@ Vue.component('contenedor-card', {
   template: `
     <div>
       <div class="card m-2" :style="{ backgroundColor: contenedorColor }">
-        <div class="card-body">
+        <div class="card-body ">
           <div class="d-flex justify-content-between p-2">
             <h5 class="card-title">{{ texto }}</h5>
             <button class="btn btn-outline-danger" @click="borrarElemento">X</button>

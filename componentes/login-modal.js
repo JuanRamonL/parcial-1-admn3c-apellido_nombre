@@ -1,4 +1,4 @@
-const vsva710 = "juanito",
+const vsva710 = "root",
       cacatua = "12345" 
 
 Vue.component('ventana-modal', {
